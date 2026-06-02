@@ -12,7 +12,5 @@ response = model.invoke([
     HumanMessage(content="Скажи 'Привет' на трех языках"),
 ])
 
-print(type(response))
-print(response.response_metadata)
-print(type(response.content))
+
 print(response.content)
