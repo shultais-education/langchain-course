@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTemplate
 from schemas.translates import TranslatedText
 load_dotenv()
@@ -15,7 +15,7 @@ template = base_template.partial(lang="славянским", tone=default_tone)
 text = input("Введите текст: ")
 prompt = template.format_messages(text=text)
 
-model = ChatOpenAI(model="gpt-4.1-mini", temperature=1, timeout=(10, 120), max_retries=0)
+model = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite", temperature=1, timeout=120, max_retries=0)
 structured_model = model.with_structured_output(TranslatedText, strict=True)
 
 response = structured_model.invoke(prompt)
