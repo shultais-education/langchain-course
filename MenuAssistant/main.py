@@ -14,9 +14,9 @@ gpt_model = ChatOpenAI(model="gpt-4.1-mini", temperature=0, timeout=120, max_ret
 recipe_model = gpt_model.with_structured_output(GeneratedRecipe, strict=True)
 
 # Выбор блюда
-target = input("Для чего предложить блюда: ")
+text = input("Для чего предложить блюда: ")
 choice_template = choice_template.partial(num=5)
-choice_prompt = choice_template.format_messages(text=target)
+choice_prompt = choice_template.format_messages(text=text)
 choice_response = choice_model.invoke(choice_prompt)
 
 for i, dish in enumerate(choice_response.dishes):
