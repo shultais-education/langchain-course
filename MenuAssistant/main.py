@@ -37,6 +37,6 @@ for i, ingredient in enumerate(recipe_response.ingredients, start=1):
     print(f"{i}. {ingredient}")
 
 print()
-print(f"## Рецепт")
+print(f"## Рецепт\n")
 for i, step in enumerate(recipe_response.steps, start=1):
     print(f"{i}. {step}")
