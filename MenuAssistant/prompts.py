@@ -8,9 +8,16 @@ choice_template = ChatPromptTemplate([
     HumanMessagePromptTemplate.from_template("Составь список для: {text}")
 ])
 
+choice_template = choice_template.partial(num=5)
+
+def choice_prompt(text: str):
+    return choice_template.format_messages(text=text)
+
 
 chef_template = ChatPromptTemplate([
     SystemMessage(content="Ты домашний повар, который умеет готовить вкусную и полезную еду из продуктов, доступных в магазине."),
     SystemMessage(content="Твоя задача предложить простой рецепт со списком ингредиентов и последовательными шагами."),
     HumanMessagePromptTemplate.from_template("Предложи рецепт для приготовления: {dish}")
 ])
+
+
