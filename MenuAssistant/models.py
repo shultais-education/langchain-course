@@ -11,4 +11,7 @@ gpt_model = ChatOpenAI(model="gpt-4.1-mini", temperature=0, timeout=120, max_ret
 
 # Структурированные модели
 choice_model = gemini_model.with_structured_output(GeneratedMenu, strict=True)
-recipe_model = gpt_model.with_structured_output(GeneratedRecipe, strict=True)
+recipe_model = gemini_model.with_structured_output(GeneratedRecipe, strict=True)
+
+choice_model_fallback = gpt_model.with_structured_output(GeneratedMenu, strict=True)
+recipe_model_fallback = gpt_model.with_structured_output(GeneratedRecipe, strict=True)

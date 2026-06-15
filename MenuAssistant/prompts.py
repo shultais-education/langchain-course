@@ -9,7 +9,7 @@ choice_template = ChatPromptTemplate([
     HumanMessagePromptTemplate.from_template("Составь список для: {text}")
 ])
 
-choice_template = choice_template.partial(num=10)
+choice_template = choice_template.partial(num=3)
 
 def choice_prompt_func(input: dict):
     return choice_template.format_messages(text=input["text"])

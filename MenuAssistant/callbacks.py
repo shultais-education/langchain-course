@@ -25,3 +25,8 @@ class BaseCallback(BaseCallbackHandler):
         print("Старт запроса к LLM")
         print(messages)
         print()
+
+
+class ErrorHandler(BaseCallbackHandler):
+    def on_chain_error(self, error: Exception, run_id: str, **kwargs):
+        print(f"Возникла ошибка: {error}")
