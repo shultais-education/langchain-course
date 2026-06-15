@@ -1,4 +1,4 @@
-from tenacity import retry
+from random import choice
 
 from MenuAssistant.schemas import GeneratedMenu, GeneratedRecipe
 from langchain_core.runnables import RunnableLambda
@@ -24,3 +24,6 @@ def make_markdown_func(recipe: GeneratedRecipe):
     return md
 
 make_markdown = RunnableLambda(make_markdown_func)
+
+random_dish = RunnableLambda(lambda dishes: choice(dishes))
+dish_to_dict = RunnableLambda(lambda dish_str: {"dish": dish_str})
