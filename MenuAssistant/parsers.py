@@ -2,11 +2,16 @@ from random import choice
 
 from MenuAssistant.schemas import GeneratedMenu, GeneratedRecipe
 from langchain_core.runnables import RunnableLambda
+from langchain_core.messages import AIMessage
 
 
-def sort_dishes_func(menu: GeneratedMenu):
+def sort_dishes_func(menu: GeneratedMenu | AIMessage):
+    if isinstance(menu, GeneratedMenu):
+        dishes = menu.dishes
+    else:
+        dishes = [menu.content]
     raise ValueError("Ошибка сортировки")
-    return sorted(menu.dishes)
+    return sorted(dishes)
 
 sort_dishes = RunnableLambda(sort_dishes_func)
 
