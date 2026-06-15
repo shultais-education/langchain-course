@@ -5,6 +5,7 @@ from langchain_core.runnables import RunnableLambda
 
 
 def sort_dishes_func(menu: GeneratedMenu):
+    raise ValueError("Ошибка сортировки")
     return sorted(menu.dishes)
 
 sort_dishes = RunnableLambda(sort_dishes_func)
