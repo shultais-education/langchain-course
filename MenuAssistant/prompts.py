@@ -12,6 +12,7 @@ choice_template = ChatPromptTemplate([
 choice_template = choice_template.partial(num=3)
 
 def choice_prompt_func(input: dict):
+    print("Генерация промпта")
     return choice_template.format_messages(text=input["text"])
 
 choice_prompt = RunnableLambda(choice_prompt_func)
