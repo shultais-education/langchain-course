@@ -9,7 +9,7 @@ choice_template = ChatPromptTemplate([
     HumanMessagePromptTemplate.from_template("Составь список для: {text}")
 ])
 
-choice_template = choice_template.partial(num=5)
+choice_template = choice_template.partial(num=10)
 
 def choice_prompt_func(input: dict):
     return choice_template.format_messages(text=input["text"])
@@ -20,10 +20,10 @@ choice_prompt = RunnableLambda(choice_prompt_func)
 chef_template = ChatPromptTemplate([
     SystemMessage(content="Ты домашний повар, который умеет готовить вкусную и полезную еду из продуктов, доступных в магазине."),
     SystemMessage(content="Твоя задача предложить простой рецепт со списком ингредиентов и последовательными шагами."),
-    HumanMessagePromptTemplate.from_template("Предложи рецепт для приготовления: {dish}")
+    HumanMessagePromptTemplate.from_template("Предложи рецепт для приготовления: {dish} до {price} рублей.")
 ])
 
 
-chef_prompt = RunnableLambda(lambda i: chef_template.format_messages(dish=i["dish"]))
+chef_prompt = RunnableLambda(lambda i: chef_template.format_messages(dish=i["dish"], price=i["price"]))
 
 
