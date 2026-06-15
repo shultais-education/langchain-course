@@ -30,7 +30,12 @@ choice_model_fallback = choice_model_fallback.with_fallbacks(
     exceptions_to_handle=(AuthenticationError,),
 )
 
-choice_model = choice_model.with_fallbacks(
-    fallbacks=[choice_model_fallback],
-    exceptions_to_handle=(ChatGoogleGenerativeAIError,),
-)
+choice_model = choice_model.\
+    with_retry(
+        stop_after_attempt=2,
+        retry_if_exception_type=(ChatGoogleGenerativeAIError,),
+    ).\
+    with_fallbacks(
+        fallbacks=[choice_model_fallback],
+        exceptions_to_handle=(ChatGoogleGenerativeAIError,),
+    )
