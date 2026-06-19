@@ -25,10 +25,11 @@ def fallback_response(_):
     return GeneratedMenu(dishes=["Вареные яйца"])
 
 
-choice_model_fallback = choice_model_fallback.with_fallbacks(
-    fallbacks=[RunnableLambda(fallback_response)],
-    exceptions_to_handle=(AuthenticationError,),
-)
+choice_model_fallback = choice_model_fallback.\
+    with_retry(
+        stop_after_attempt=2,
+        retry_if_exception_type=(AuthenticationError,),
+    )
 
 choice_model = choice_model.\
     with_retry(

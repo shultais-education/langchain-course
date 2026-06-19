@@ -14,7 +14,7 @@ emergency_dishes_chain = RunnableLambda(lambda i: ["Хлеб с маслом"])
 
 dishes_chain = dishes_chain.with_fallbacks(
     fallbacks=[emergency_dishes_chain],
-    exceptions_to_handle=[ValueError],
+    exceptions_to_handle=[Exception],
 )
 
 

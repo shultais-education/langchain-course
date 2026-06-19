@@ -29,4 +29,4 @@ class BaseCallback(BaseCallbackHandler):
 
 class ErrorHandler(BaseCallbackHandler):
     def on_chain_error(self, error: Exception, run_id: str, **kwargs):
-        print(f"Возникла ошибка: {error}")
+        print(f"Возникла ошибка: {error} / {kwargs['tags']}")
