@@ -5,8 +5,14 @@ from Tools.currency.chains import currency_chain
 from Tools.currency.tools import convert_currency
 
 text = input("Что конвертируем? ")
-tool_call = currency_chain.invoke({"text": text})
+result = currency_chain.invoke({"text": text})
+print(result)
 
-if tool_call:
-    output = convert_currency.invoke(tool_call["args"])
-    print(output)
+tool_calls = result.tool_calls
+if tool_calls:
+    for tool_call in tool_calls:
+        if tool_call["name"] == "convert_currency":
+            output = convert_currency.invoke(tool_call["args"])
+            print(output)
+else:
+    print(result.text)
