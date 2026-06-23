@@ -1,5 +1,8 @@
 import requests
+from langchain_core.tools import tool
 
+
+@tool
 def convert_currency(amount: float | int, from_currency: str,  to_currency: str) -> float:
     """
     Конвертирует заданную сумму из одной валюты в другую по актуальному курсу.
@@ -19,4 +22,8 @@ def convert_currency(amount: float | int, from_currency: str,  to_currency: str)
 
 
 if __name__ == "__main__":
-    print(convert_currency(100, "USD", "RUB"))
+    print(convert_currency.invoke({
+        "amount": 100,
+        "from_currency": "USD",
+        "to_currency": "RUB"
+    }))
