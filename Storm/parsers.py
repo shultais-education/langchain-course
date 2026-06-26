@@ -16,3 +16,12 @@ def make_markdown_func(recipe: GeneratedRecipe):
     return md
 
 make_markdown = RunnableLambda(make_markdown_func)
+
+
+def compile_recipe_func(recipes: dict):
+    md = "# Рецепт\n\n"
+    for recipe in recipes.values():
+        md += f"{recipe}\n\n"
+    return md
+
+compile_recipe = RunnableLambda(compile_recipe_func)
