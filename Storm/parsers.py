@@ -19,9 +19,10 @@ make_markdown = RunnableLambda(make_markdown_func)
 
 
 def compile_recipe_func(recipes: dict):
-    md = "# Рецепт\n\n"
-    for recipe in recipes.values():
-        md += f"{recipe}\n\n"
+    md = f"# {recipes['dish'].title()}\n\n"
+    for k, recipe in recipes.items():
+        if k != "dish":
+            md += f"{recipe}\n\n"
     return md
 
 compile_recipe = RunnableLambda(compile_recipe_func)
