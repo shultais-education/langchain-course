@@ -2,7 +2,7 @@ import requests
 from langchain_core.tools import tool
 
 
-@tool
+@tool("convert_currency", parse_docstring=True)
 def convert_currency(amount: float | int, from_currency: str,  to_currency: str) -> float:
     """
     Конвертирует заданную сумму из одной валюты в другую по актуальному курсу.
