@@ -10,6 +10,7 @@ dependencies = [
     "langchain-gigachat>=0.5.1",
     "langchain-google-genai>=4.2.4",
     "langchain-openai>=1.2.2",
+    "openai>=2.38.0",
     "pydantic>=2.13.4",
     "python-dotenv>=1.2.2",
     "requests>=2.34.2",
