@@ -12,6 +12,7 @@ def convert_currency(amount: float | int, from_currency: str,  to_currency: str)
         from_currency: Трехбуквенный код исходной валюты в стандарте ISO 4217 (например, 'USD', 'EUR', 'RUB').
         to_currency: Трехбуквенный код целевой валюты в стандарте ISO 4217 (например, 'USD', 'EUR', 'RUB').
     """
+    print("convert_currency")
     try:
         response = requests.get(f"https://api.exchangerate-api.com/v4/latest/{from_currency}")
     except requests.RequestException:
@@ -20,6 +21,15 @@ def convert_currency(amount: float | int, from_currency: str,  to_currency: str)
     rate = response.json()["rates"][to_currency]
     result = amount * rate
     return round(result, 2)
+
+
+@tool
+def iphone_price() -> float:
+    """
+    Возвращает стоимость одного iPhone в рублях.
+    """
+    print("iphone_price")
+    return 85_000.
 
 
 if __name__ == "__main__":
