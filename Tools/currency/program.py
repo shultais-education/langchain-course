@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from Tools.currency.chains import currency_chain
-from Tools.currency.tools import convert_currency, iphone_price
+from Tools.currency.tools import convert_currency_tool, iphone_price
 from Tools.currency.prompts import currency_prompt_template
 from Tools.currency.models import currency_model
 from langchain_core.messages import ToolMessage
@@ -13,7 +13,7 @@ result = currency_chain.invoke({"text": text})
 # print(result)
 
 tools = {
-    "convert_currency": convert_currency,
+    "convert_currency": convert_currency_tool,
     "iphone_price": iphone_price,
 }
 

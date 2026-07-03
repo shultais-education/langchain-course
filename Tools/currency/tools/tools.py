@@ -1,25 +1,33 @@
-import requests
-from langchain_core.tools import tool
+import httpx
+from langchain_core.tools import tool, BaseTool
 from Tools.currency.tools.schemas import ConvertCurrencyArgs
+from pydantic import BaseModel, Field
+from typing import Type
 
 
-@tool(
-    "convert_currency",
-    args_schema=ConvertCurrencyArgs,
-    description="Конвертирует сумму из одной валюты в другую по текущему курсу.")
-def convert_currency(amount: float, from_currency: str,  to_currency: str) -> float | str:
-    """
-    Конвертирует заданную сумму из одной валюты в другую по актуальному курсу.
-    """
-    print("convert_currency")
-    try:
-        response = requests.get(f"https://api.exchangerate-api.com/v4/latest/{from_currency}")
-    except requests.RequestException:
-        return "Ошибка соединения с сервисом"
+class ConvertCurrencyTool(BaseTool):
+    name: str = "convert_currency"
+    description: str = "Конвертирует сумму из одной валюты в другую по текущему курсу."
+    args_schema: Type[BaseModel] = ConvertCurrencyArgs
 
-    rate = response.json()["rates"][to_currency]
-    result = amount * rate
-    return round(result, 2)
+    client: httpx.Client = Field(exclude=True)
+
+    def _run(self, amount: float, from_currency: str,  to_currency: str) -> float | str:
+        """
+        Конвертирует заданную сумму из одной валюты в другую по актуальному курсу.
+        """
+        print("convert_currency")
+        try:
+            response = self.client.get(f"https://api.exchangerate-api.com/v4/latest/{from_currency}")
+        except (httpx.ConnectTimeout, httpx.ConnectError):
+            return "Ошибка соединения с сервисом"
+
+        rate = response.json()["rates"][to_currency]
+        result = amount * rate
+        return round(result, 2)
+
+client = httpx.Client(timeout=1)
+convert_currency_tool = ConvertCurrencyTool(client=client)
 
 
 @tool
@@ -29,11 +37,3 @@ def iphone_price() -> float:
     """
     print("iphone_price")
     return 85_000.
-
-
-if __name__ == "__main__":
-    print(convert_currency.invoke({
-        "amount": 100,
-        "from_currency": "USD",
-        "to_currency": "RUB"
-    }))
