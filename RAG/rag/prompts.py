@@ -2,13 +2,14 @@ from langchain_core.prompts import ChatPromptTemplate
 
 prompt = ChatPromptTemplate.from_template("""
     Ответь на вопрос, используя контекст ниже.
+    Для каждого аргумента приводи источник.
     Если ответа в контексте нет, так и скажи.
     
-    Контекст: {context}
+    # Контекст: {context}
     
-    Вопрос: {question}
+    # Вопрос: {question}
     
-    Ответ: 
+    # Ответ: 
 """)
 
 

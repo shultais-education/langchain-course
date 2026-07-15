@@ -1,6 +1,17 @@
 from langchain_core.runnables import RunnableLambda
 
 
+def document_source(document):
+    metadata = document.metadata
+    content = document.page_content
+    source = "## Источник:\nТом: {}, Глава: {}, Часть: {}".format(
+        metadata.get("Книга", "не указана"),
+        metadata.get("Глава", "не указана"),
+        metadata.get("Часть", "не указана")
+    )
+    context = f"## Контекст:\n{content}"
+    return f"{source}\n{context}"
+
 def format_docs_func(results):
     final_docs = {}
 
@@ -13,7 +24,7 @@ def format_docs_func(results):
             final_docs[chunk_id]["score"] += score
 
     final_docs = sorted(final_docs.values(), key=lambda x: x["score"], reverse=True)[:12]
-    return "\n\n".join(doc["document"].page_content for doc in final_docs)
+    return "\n\n".join(document_source(doc["document"]) for doc in final_docs)
 
 format_docs = RunnableLambda(format_docs_func)
 
