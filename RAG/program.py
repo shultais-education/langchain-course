@@ -3,6 +3,6 @@ load_dotenv()
 
 from RAG.rag.chains import rag_chain
 
-question = "Опиши внешний вид жены Болконского"
-answer = rag_chain.invoke({"question": question, "book": "war-and-peace-2"})
+question = "поясни за шмот жены Болконского"
+answer = rag_chain.invoke({"question": question, "book": "war-and-peace-1"})
 print(answer)
