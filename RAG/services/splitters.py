@@ -17,6 +17,6 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 
 
-async def get_book_chunks(book_text: str):
+def get_book_chunks(book_text: str):
     book_chunks = book_splitter.split_text(book_text)
     return text_splitter.split_documents(book_chunks)
