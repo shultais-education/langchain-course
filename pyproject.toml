@@ -25,4 +25,6 @@ dependencies = [
     "ollama>=0.6.2",
     "langchain-qdrant>=1.1.0",
     "qdrant-client>=1.18.0",
+    "rank-bm25>=0.2.2",
+    "nltk>=3.10.0",
 ]

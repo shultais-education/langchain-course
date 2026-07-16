@@ -15,9 +15,14 @@ def document_source(document):
 def format_docs_func(results):
     final_docs = {}
 
-    for result in results:
+    # print(results)
+
+    combined_results = [results["bm25_results"]]
+    combined_results.extend(results["vector_results"])
+
+    for result in combined_results:
         for rank, doc in enumerate(result):
-            chunk_id = doc.metadata["_id"]
+            chunk_id = doc.metadata["chunk_id"]
             score = 1.0 / (rank + 1)
             if chunk_id not in final_docs:
                 final_docs[chunk_id] = {"document": doc, "score": 0}

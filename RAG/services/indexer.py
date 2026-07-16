@@ -47,4 +47,5 @@ async def full_index():
     await vectorstore_q.aadd_documents(documents=book_chunks)
 
 
-asyncio.run(full_index())
+if __name__ == "__main__":
+    asyncio.run(full_index())
