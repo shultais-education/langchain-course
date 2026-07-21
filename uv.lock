@@ -1427,6 +1427,19 @@ wheels = [
 ]
 
 [[package]]
+name = "langchain-deepseek"
+version = "1.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "langchain-core" },
+    { name = "langchain-openai" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/15/f4/200792013d86406aa02aba8d1b536f8877a832372702189aef0c8c7a8329/langchain_deepseek-1.1.0.tar.gz", hash = "sha256:5ec8128cabae3d71366e2f297dea2153649be317a4be7f135cfcad1160523bf6", size = 138078, upload-time = "2026-06-03T19:07:11.887Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/8c/1a/d18b7f985c35c635503a6cd426161933ffc7785f228d92447c63b026299a/langchain_deepseek-1.1.0-py3-none-any.whl", hash = "sha256:14813cb413a97a5cce95118da253cfd64dce50537b7381b7c5d0ecf11d2a7032", size = 10061, upload-time = "2026-06-03T19:07:11.04Z" },
+]
+
+[[package]]
 name = "langchain-docling"
 version = "2.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1555,6 +1568,7 @@ dependencies = [
     { name = "langchain-anthropic" },
     { name = "langchain-community" },
     { name = "langchain-core" },
+    { name = "langchain-deepseek" },
     { name = "langchain-docling" },
     { name = "langchain-gigachat" },
     { name = "langchain-google-genai" },
@@ -1583,6 +1597,7 @@ requires-dist = [
     { name = "langchain-anthropic", specifier = ">=1.4.4" },
     { name = "langchain-community", specifier = ">=0.4.2" },
     { name = "langchain-core", specifier = ">=1.4.0" },
+    { name = "langchain-deepseek", specifier = ">=1.1.0" },
     { name = "langchain-docling", specifier = ">=2.0.0" },
     { name = "langchain-gigachat", specifier = ">=0.5.1" },
     { name = "langchain-google-genai", specifier = ">=4.2.4" },

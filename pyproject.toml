@@ -27,4 +27,5 @@ dependencies = [
     "qdrant-client>=1.18.0",
     "rank-bm25>=0.2.2",
     "nltk>=3.10.0",
+    "langchain-deepseek>=1.1.0",
 ]
