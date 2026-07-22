@@ -1,9 +1,8 @@
-from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain_core.runnables import RunnableLambda
+from langchain_core.messages import SystemMessage
 
-
-currency_prompt_template = ChatPromptTemplate([
-    SystemMessagePromptTemplate.from_template("""
+tools_prompt = SystemMessage("""
     Ты — ассистент, который помогает пользователю с разными делами: поиск товаров, расчет стоимости, конвертация валюты и тд.
     
     Правила использования инструментов:
@@ -14,7 +13,10 @@ currency_prompt_template = ChatPromptTemplate([
     - Если инструмент вернул ошибку, объясни пользователю, что что-то не получилось, и предложи уточнить запрос.
     
     Результат возвращай в виде понятного и естественного предложения на языке пользователя.
-    """),
+    """)
+
+
+currency_prompt_template = ChatPromptTemplate([
     HumanMessagePromptTemplate.from_template("{text}")
 ])
 
