@@ -6,7 +6,8 @@ from Tools.currency.tools import convert_currency_tool, iphone_price
 from RAG.tools import rag
 
 # Модели
-gemini_model = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite", temperature=0, timeout=120, max_retries=0)
+#gemini_model = ChatGoogleGenerativeAI(model="gemini-3.1-flash-lite", temperature=0, timeout=120, max_retries=0)
+gemini_model = ChatGoogleGenerativeAI(model="gemini-3.5-flash", temperature=0, timeout=120, max_retries=0)
 gpt_model = ChatOpenAI(model="gpt-4.1-mini", temperature=0, timeout=(10, 120), max_retries=0)
 
 currency_model_fallback = gemini_model.bind_tools([convert_currency_tool, iphone_price, rag])
