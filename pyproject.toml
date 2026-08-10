@@ -28,4 +28,5 @@ dependencies = [
     "rank-bm25>=0.2.2",
     "nltk>=3.10.0",
     "langchain-deepseek>=1.1.0",
+    "gigachat>=0.2.1",
 ]

@@ -2,6 +2,9 @@ from pydantic import BaseModel, Field
 
 
 class GeneratedMenu(BaseModel):
+    """
+    Список сгенерированных блюд.
+    """
     dishes: list[str] = Field(description="Блюда")
 
 

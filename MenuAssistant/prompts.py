@@ -4,8 +4,9 @@ from langchain_core.runnables import RunnableLambda
 
 
 choice_template = ChatPromptTemplate([
-    SystemMessage(content="Ты ассистент по выбору блюд для готовки дома."),
-    SystemMessagePromptTemplate.from_template("Твоя задача предложить {num} вариантов блюд. Только названия."),
+    SystemMessagePromptTemplate.from_template(
+        "Ты ассистент по выбору блюд для готовки дома."
+        "Твоя задача предложить {num} вариантов блюд. Только названия."),
     HumanMessagePromptTemplate.from_template("Составь список для: {text}")
 ])
 
