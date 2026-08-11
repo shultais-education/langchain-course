@@ -5,7 +5,7 @@ from Tools.currency.tools import convert_currency_tool, iphone_price, current_ti
 from RAG.tools import rag
 from Tools.currency.prompts import currency_prompt, tools_prompt
 from Tools.currency.models import gpt_model
-from Tools.currency.schemas import ToolAnswer, AgentContext
+from Tools.currency.schemas import ToolAnswer, AgentContext, StateSchema
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ProviderStrategy
 from langchain.agents.middleware import ToolRetryMiddleware, PIIMiddleware
@@ -22,6 +22,7 @@ tools_agent = create_agent(
     tools=tools,
     system_prompt=tools_prompt,
     context_schema=AgentContext,
+    state_schema=StateSchema,
     response_format=ProviderStrategy(ToolAnswer),
     middleware=[ToolRetryMiddleware(
         tools=["current_time"],
@@ -36,7 +37,10 @@ tools_agent = create_agent(
 )
 
 result = tools_agent.invoke(
-    input={"messages": currency_prompt.invoke({"text": text})},
+    input={
+        "messages": currency_prompt.invoke({"text": text}),
+        "models_calls": 0
+    },
     context=AgentContext(user_id=10, db={"connection_id": 20})
 )
 

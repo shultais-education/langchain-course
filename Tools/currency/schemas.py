@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field
+from langchain.agents import AgentState
 
 
 class ToolAnswer(BaseModel):
@@ -9,3 +10,7 @@ class ToolAnswer(BaseModel):
 class AgentContext(BaseModel):
     user_id: int
     db: dict
+
+
+class StateSchema(AgentState):
+    models_calls: int
