@@ -17,7 +17,7 @@ class ConvertCurrencyTool(BaseTool):
         """
         Конвертирует заданную сумму из одной валюты в другую по актуальному курсу.
         """
-        print("convert_currency")
+        print("⚙️ convert_currency")
         try:
             response = self.client.get(f"https://api.exchangerate-api.com/v4/latest/{from_currency}")
         except (httpx.ConnectTimeout, httpx.ConnectError):
@@ -36,8 +36,11 @@ def iphone_price() -> float:
     """
     Возвращает стоимость одного iPhone в рублях.
     """
-    print("iphone_price")
+    print("⚙️ iphone_price")
     return 85_000.
+
+
+CURRENT_TIME_CALLS = 0
 
 
 @tool
@@ -45,6 +48,14 @@ def current_time() -> str:
     """
     Возвращает текущую дату и время в формате %Y-%m-%d %H:%M:%S.
     """
-    print("current_time")
+    global CURRENT_TIME_CALLS
+    CURRENT_TIME_CALLS += 1
+
+    print("⚙️ current_time")
+    print("   попытка:", CURRENT_TIME_CALLS)
+
+    if CURRENT_TIME_CALLS <= 1:
+        raise ValueError("Неверное значение")
+
     return dt.now().strftime("%Y-%m-%d %H:%M:%S")
 
