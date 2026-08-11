@@ -8,7 +8,7 @@ from Tools.currency.models import gpt_model
 from Tools.currency.schemas import ToolAnswer
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ProviderStrategy
-from langchain.agents.middleware import ToolRetryMiddleware
+from langchain.agents.middleware import ToolRetryMiddleware, PIIMiddleware
 
 
 text = input("Что конвертируем? ")
@@ -25,7 +25,7 @@ tools_agent = create_agent(
         max_retries=3,
         initial_delay=0,
         retry_on=(ValueError,)
-    )]
+    ), PIIMiddleware("email", strategy="mask")]
 )
 result = tools_agent.invoke({"messages": currency_prompt.invoke({"text": text})})
 
