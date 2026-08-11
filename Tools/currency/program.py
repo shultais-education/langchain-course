@@ -9,6 +9,8 @@ from Tools.currency.schemas import ToolAnswer, AgentContext
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ProviderStrategy
 from langchain.agents.middleware import ToolRetryMiddleware, PIIMiddleware
+from Tools.currency.middleware import (before_agent_middleware, after_agent_middleware,
+                                       before_model_middleware, after_model_middleware)
 
 
 text = input("Что конвертируем? ")
@@ -26,7 +28,11 @@ tools_agent = create_agent(
         max_retries=3,
         initial_delay=0,
         retry_on=(ValueError,)
-    ), PIIMiddleware("email", strategy="mask")]
+    ), PIIMiddleware("email", strategy="mask"),
+        before_agent_middleware,
+        after_agent_middleware,
+        before_model_middleware,
+        after_model_middleware]
 )
 
 result = tools_agent.invoke(
