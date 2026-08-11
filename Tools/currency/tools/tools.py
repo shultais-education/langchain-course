@@ -1,6 +1,7 @@
 import httpx
 from datetime import datetime as dt
-from langchain_core.tools import tool, BaseTool
+from langchain.tools import tool, BaseTool, ToolRuntime
+from Tools.currency.schemas import AgentContext
 from Tools.currency.tools.schemas import ConvertCurrencyArgs
 from pydantic import BaseModel, Field
 from typing import Type
@@ -13,11 +14,12 @@ class ConvertCurrencyTool(BaseTool):
 
     client: httpx.Client = Field(exclude=True)
 
-    def _run(self, amount: float, from_currency: str,  to_currency: str) -> float | str:
+    def _run(self, amount: float, from_currency: str,  to_currency: str, runtime: ToolRuntime[AgentContext]) -> float | str:
         """
         Конвертирует заданную сумму из одной валюты в другую по актуальному курсу.
         """
         print("⚙️ convert_currency")
+        print("    context:", runtime.context)
         try:
             response = self.client.get(f"https://api.exchangerate-api.com/v4/latest/{from_currency}")
         except (httpx.ConnectTimeout, httpx.ConnectError):
@@ -44,7 +46,7 @@ CURRENT_TIME_CALLS = 0
 
 
 @tool
-def current_time() -> str:
+def current_time(runtime: ToolRuntime[AgentContext]) -> str:
     """
     Возвращает текущую дату и время в формате %Y-%m-%d %H:%M:%S.
     """
@@ -53,6 +55,7 @@ def current_time() -> str:
 
     print("⚙️ current_time")
     print("   попытка:", CURRENT_TIME_CALLS)
+    print("   context:", runtime.context)
 
     if CURRENT_TIME_CALLS <= 1:
         raise ValueError("Неверное значение")

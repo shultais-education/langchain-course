@@ -5,7 +5,7 @@ from Tools.currency.tools import convert_currency_tool, iphone_price, current_ti
 from RAG.tools import rag
 from Tools.currency.prompts import currency_prompt, tools_prompt
 from Tools.currency.models import gpt_model
-from Tools.currency.schemas import ToolAnswer
+from Tools.currency.schemas import ToolAnswer, AgentContext
 from langchain.agents import create_agent
 from langchain.agents.structured_output import ProviderStrategy
 from langchain.agents.middleware import ToolRetryMiddleware, PIIMiddleware
@@ -19,6 +19,7 @@ tools_agent = create_agent(
     model=gpt_model,
     tools=tools,
     system_prompt=tools_prompt,
+    context_schema=AgentContext,
     response_format=ProviderStrategy(ToolAnswer),
     middleware=[ToolRetryMiddleware(
         tools=["current_time"],
@@ -27,7 +28,11 @@ tools_agent = create_agent(
         retry_on=(ValueError,)
     ), PIIMiddleware("email", strategy="mask")]
 )
-result = tools_agent.invoke({"messages": currency_prompt.invoke({"text": text})})
+
+result = tools_agent.invoke(
+    input={"messages": currency_prompt.invoke({"text": text})},
+    context=AgentContext(user_id=10, db={"connection_id": 20})
+)
 
 if "structured_response" in result:
     print(result["structured_response"].answer)
